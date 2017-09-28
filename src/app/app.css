@@ -1,0 +1,16 @@
+.card-border {
+    background-color: red;
+}
+
+.life-container {
+    display: flex;
+    height: 100%;
+}
+
+.red-card {
+    color: #f00;
+}
+
+.black-card {
+    color: #000;
+}

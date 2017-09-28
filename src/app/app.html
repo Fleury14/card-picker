@@ -1,3 +1,4 @@
+
 <div class="ui container main">
 	<h1>Card Pick-a-matic</h1>
 
@@ -5,23 +6,26 @@
 		<div class="ui grid">
 			<div class="two column row">
 				<div class="middle aligned column">
-					<button class="ui big fluid button">
+					<button [disabled]="52-ownedCards.length < 1" (click)="userPickedCard()" id="drawButton" class="ui big fluid button">
 						Pick a card!
 					</button>
 				</div>
-				<div class="one wide bottom aligned column">
-					<div class="life-bar"></div>
+				<div [ngStyle]="lifeBarContStyle" class="one wide bottom aligned column">
+					<div [ngStyle]="lifeBarStyle" class="life-bar"></div>
 				</div>
 				<div class="four wide middle aligned column">
-						You last drew: n/a
+					<p *ngIf="recentCard !== undefined">You drew: {{ recentCard.rank }}  {{ recentCard.suit }}. Total cards owned: {{ ownedCards.length }}. Cards left: {{ 52 - ownedCards.length }}</p>
 				</div>
 			</div>
+			
 		</div>
 	</div>
 
-	<div class="ui left floated compact center aligned segment card-in-hand">
-		<button class="ui large button">
-			<h2>card.rank of card.suit</h2>
+	<p></p>
+
+	<div *ngFor="let item of ownedCards" class="ui left floated compact center aligned segment card-in-hand card-border">
+		<button (click)="userReturnedCard(item, $event)" class="ui large button">
+			<h2 [ngClass]="item.suit == '♡' || item.suit == '♢' ? 'red-card' : 'black-card'" >{{ item.rank }}  {{ item.suit }}</h2>
 			<span class="return">
 				RETURN
 				<i class="reply icon"></i>
